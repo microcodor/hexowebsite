@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>微码农</title>
+  
+  <subtitle>程序员工作笔记</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://microcodor.github.io/"/>
+  <updated>2019-05-07T08:51:35.000Z</updated>
+  <id>https://microcodor.github.io/</id>
+  
+  <author>
+    <name>[object Object]</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Builder模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/Builder%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/Builder模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:51:35.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Builder模式"><a href="#Builder模式" class="headerlink" title="#Builder模式"></a>#Builder模式</h2><h2 id="模式介绍"><a href="#模式介绍" class="headerlink" title="##模式介绍"></a>##模式介绍</h2><p>###模式的定义</p><p>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p><p>###模式的使用场景</p><ol><li>相同的方法，不同的执行顺序，产生不同的事件结果时；</li><li>多个部件或零件，都可以装配到一个对象中，但是产生的运行结果又不相同时；</li><li>产品类非常复杂，或者产品类中的调用顺序不同产生了不同的效能，这个时候使用建造者模式非常合适；</li></ol><p>###Android源码中的模式实现</p><p>在Android源码中，我们最常用到的Builder模式就是AlertDialog.Builder， 使用该Builder来构建复杂的AlertDialog对象。简单示例如下 :</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//显示基本的AlertDialog  </span><br><span class="line">    private void showDialog(Context context) &#123;  </span><br><span class="line">        AlertDialog.Builder builder = new AlertDialog.Builder(context);  </span><br><span class="line">        builder.setIcon(R.drawable.icon);  </span><br><span class="line">        builder.setTitle(&quot;Title&quot;);  </span><br><span class="line">        builder.setMessage(&quot;Message&quot;);  </span><br><span class="line">        builder.setPositiveButton(&quot;Button1&quot;,  </span><br><span class="line">                new DialogInterface.OnClickListener() &#123;  </span><br><span class="line">                    public void onClick(DialogInterface dialog, int whichButton) &#123;  </span><br><span class="line">                        setTitle(&quot;点击了对话框上的Button1&quot;);  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;);  </span><br><span class="line">        builder.setNeutralButton(&quot;Button2&quot;,  </span><br><span class="line">                new DialogInterface.OnClickListener() &#123;  </span><br><span class="line">                    public void onClick(DialogInterface dialog, int whichButton) &#123;  </span><br><span class="line">                        setTitle(&quot;点击了对话框上的Button2&quot;);  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;);  </span><br><span class="line">        builder.setNegativeButton(&quot;Button3&quot;,  </span><br><span class="line">                new DialogInterface.OnClickListener() &#123;  </span><br><span class="line">                    public void onClick(DialogInterface dialog, int whichButton) &#123;  </span><br><span class="line">                        setTitle(&quot;点击了对话框上的Button3&quot;);  </span><br><span class="line">                    &#125;  </span><br><span class="line">                &#125;);  </span><br><span class="line">        builder.create().show();  // 构建AlertDialog， 并且显示</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><h2 id="优点与缺点"><a href="#优点与缺点" class="headerlink" title="##优点与缺点"></a>##优点与缺点</h2><p>###优点</p><ul><li>良好的封装性， 使用建造者模式可以使客户端不必知道产品内部组成的细节；</li><li>建造者独立，容易扩展；</li><li>在对象创建过程中会使用到系统中的一些其它对象，这些对象在产品对象的创建过程中不易得到。</li></ul><p>###缺点</p><ul><li>会产生多余的Builder对象以及Director对象，消耗内存；</li><li>对象的构建过程暴露。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Builder模式&quot;&gt;&lt;a href=&quot;#Builder模式&quot; class=&quot;headerlink&quot; title=&quot;#Builder模式&quot;&gt;&lt;/a&gt;#Builder模式&lt;/h2&gt;&lt;h2 id=&quot;模式介绍&quot;&gt;&lt;a href=&quot;#模式介绍&quot; class=&quot;header
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>外观模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/外观模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:50:50.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="外观模式"><a href="#外观模式" class="headerlink" title="#外观模式"></a>#外观模式</h2><p>###定义<br>为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p><p>###外观模式的目的</p><p>不是给子系统添加新的功能接口，而是为了让外部减少与子系统内多个模块的交互，松散耦合，从而让外部能够更简单的使用子系统。</p><p>###优缺点</p><ol><li>优点<ul><li>松散耦合</li><li>简单易用</li><li>更好的划分访问的层次</li></ul></li><li>缺点<ul><li>过多的或者是不太合理的Facade也容易让人迷惑。到底是调用Facade好还是直接调用模块好。</li></ul></li></ol><p>###本质<br>封装交互，简化调用</p><p>###何时选用外观模式</p><ul><li>如果你希望为复杂的子系统提供一个简单接口的时候，可以考虑使用外观模式。使用外观对象对实现大部分客户需要的功能，从而简化客户的使用。</li><li>如果想要让客户程序和抽象类的实现部分松散耦合，可以考虑使用外观模式，使用外观对象来将这个子系统与它的客户分离开来，从而提高子系统的独立性和可移植性。</li><li>如果构建多层结构的系统，可以考虑使用外观模式，使用外观对象作为每层的入口，这样就可以简化层间调用，也可以松散层次之间的依赖关系。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;外观模式&quot;&gt;&lt;a href=&quot;#外观模式&quot; class=&quot;headerlink&quot; title=&quot;#外观模式&quot;&gt;&lt;/a&gt;#外观模式&lt;/h2&gt;&lt;p&gt;###定义&lt;br&gt;为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代理模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/代理模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:50:29.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="代理模式"><a href="#代理模式" class="headerlink" title="#代理模式"></a>#代理模式</h2><p>##模式介绍</p><p>代理模式是对象的结构模式。代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引用。</p><p>##模式的使用场景</p><p>就是一个人或者机构代表另一个人或者机构采取行动。在一些情况下，一个客户不想或者不能够直接引用一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。</p><p>##角色介绍</p><ul><li>抽象对象角色：声明了目标对象和代理对象的共同接口，这样一来在任何可以使用目标对象的地方都可以使用代理对象。</li><li>目标对象角色：定义了代理对象所代表的目标对象。</li><li>代理对象角色：代理对象内部含有目标对象的引用，从而可以在任何时候操作目标对象；代理对象提供一个与目标对象相同的接口，以便可以在任何时候替代目标对象。代理对象通常在客户端调用传递给目标对象之前或之后，执行某个操作，而不是单纯地将调用传递给目标对象。</li></ul><h2 id="优点与缺点"><a href="#优点与缺点" class="headerlink" title="##优点与缺点"></a>##优点与缺点</h2><p>优点</p><p>给对象增加了本地化的扩展性，增加了存取操作控制</p><p>缺点</p><p>会产生多余的代理类</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;代理模式&quot;&gt;&lt;a href=&quot;#代理模式&quot; class=&quot;headerlink&quot; title=&quot;#代理模式&quot;&gt;&lt;/a&gt;#代理模式&lt;/h2&gt;&lt;p&gt;##模式介绍&lt;/p&gt;
+&lt;p&gt;代理模式是对象的结构模式。代理模式给某一个对象提供一个代理对象，并由代理对象控制对原对象的引
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>单例模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/单例模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:50:38.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="#单例模式"></a>#单例模式</h2><p>###定义</p><blockquote><p>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p></blockquote><blockquote><p>Singleton:负责创建Singleton类自己的唯一实例，并提供一个getInstance的方法，让外部来访问这个类的唯一实例。</p></blockquote><ul><li><p>饿汉式：</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static Singleton uniqueInstance = new Singleton();</span><br></pre></td></tr></table></figure></li><li><p>懒汉式</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private static Singleton uniqueInstance = null;</span><br></pre></td></tr></table></figure></li></ul><p>###功能<br>单例模式是用来保证这个类在运行期间只会被创建一个类实例，另外，单例模式还提供了一个全局唯一访问这个类实例的访问点，就是getInstance方法。</p><p>###范围<br>Java里面实现的单例是一个虚拟机的范围。因为装载类的功能是虚拟机的，所以一个虚拟机在通过自己的ClassLoader装载饿汉式实现单例类的时候就会创建一个类的实例。</p><p>懒汉式单例有延迟加载和缓存的思想</p><p>###优缺点</p><ul><li>懒汉式是典型的时间换空间</li><li>饿汉式是典型的空间换时间</li></ul><hr><ul><li><p>不加同步的懒汉式是线程不安全的。比如，有两个线程，一个是线程A，一个是线程B，它们同时调用getInstance方法，就可能导致并发问题。</p></li><li><p>饿汉式是线程安全的，因为虚拟机保证只会装载一次，在装载类的时候是不会发生并发的。</p></li></ul><hr><p>如何实现懒汉式的线程安全？</p><p>加上synchronized即可</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static synchronized Singleton getInstance()&#123;&#125;</span><br></pre></td></tr></table></figure><p>但这样会降低整个访问的速度，而且每次都要判断。可以用双重检查加锁。</p><p>双重加锁机制，指的是：并不是每次进入getInstance方法都需要同步，而是先不同步，进入方法过后，先检查实例是否存在，如果不存在才进入下面的同步块，这是第一重检查。进入同步块后，再次检查实例是否存在，如果不存在，就在同步的情况下创建一个实例。这是第二重检查。</p><p>双重加锁机制的实现会使用一个关键字volatile，它的意思是：被volatile修饰的变量的值，将不会被本地线程缓存，所有对该变量的读写都是直接操作共享内存，从而确保多个线程能正确的处理该变量。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 双重检查加锁的单例模式</span><br><span class="line"> * @author dream</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class Singleton &#123;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 对保存实例的变量添加volitile的修饰</span><br><span class="line"> */</span><br><span class="line">private volatile static Singleton instance = null;</span><br><span class="line">private Singleton()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static Singleton getInstance()&#123;</span><br><span class="line">//先检查实例是否存在，如果不存在才进入下面的同步块</span><br><span class="line">if(instance == null)&#123;</span><br><span class="line">//同步块，线程安全的创建实例</span><br><span class="line">synchronized (Singleton.class) &#123;</span><br><span class="line">//再次检查实例是否存在，如果不存在才真正的创建实例</span><br><span class="line">instance = new Singleton();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">return instance;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>###一种更好的单例实现方式</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public class Singleton &#123;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 类级的内部类，也就是静态类的成员式内部类，该内部类的实例与外部类的实例</span><br><span class="line"> * 没有绑定关系，而且只有被调用时才会装载，从而实现了延迟加载</span><br><span class="line"> * @author dream</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">private static class SingletonHolder&#123;</span><br><span class="line">/**</span><br><span class="line"> * 静态初始化器，由JVM来保证线程安全</span><br><span class="line"> */</span><br><span class="line">private static final Singleton instance = new Singleton();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 私有化构造方法</span><br><span class="line"> */</span><br><span class="line">private Singleton()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static Singleton getInstance()&#123;</span><br><span class="line">return SingletonHolder.instance;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>根据《高效Java第二版》中的说法，单元素的枚举类型已经成为实现Singleton的最佳方法。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package example6;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 使用枚举来实现单例模式的示例</span><br><span class="line"> * @author dream</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">public class Singleton &#123;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 定义一个枚举的元素，它就代表了Singleton的一个实例</span><br><span class="line"> */</span><br><span class="line">uniqueInstance;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 示意方法，单例可以有自己的操作</span><br><span class="line"> */</span><br><span class="line">public void singletonOperation()&#123;</span><br><span class="line">//功能树立</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><p>###本质<br>控制实例数量</p><p>###何时选用单例模式<br>当需要控制一个类的实例只能有一个，而且客户只能从一个全局访问点访问它时，可以选用单例模式，这些功能恰好是单例模式要解决的问题。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;单例模式&quot;&gt;&lt;a href=&quot;#单例模式&quot; class=&quot;headerlink&quot; title=&quot;#单例模式&quot;&gt;&lt;/a&gt;#单例模式&lt;/h2&gt;&lt;p&gt;###定义&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;保证一个类仅有一个实例，并提供一个访问它的全局访问点。&lt;/p&gt;
+&lt;/
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>原型模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/原型模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:50:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="#原型模式"></a>#原型模式</h2><p>##模式介绍  </p><p>###模式的定义</p><p>用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的对象。</p><h3 id="模式的使用场景"><a href="#模式的使用场景" class="headerlink" title="模式的使用场景"></a>模式的使用场景</h3><ol><li>类初始化需要消化非常多的资源，这个资源包括数据、硬件资源等，通过原型拷贝避免这些消耗；</li><li>通过 new 产生一个对象需要非常繁琐的数据准备或访问权限，则可以使用原型模式；</li><li>一个对象需要提供给其他对象访问，而且各个调用者可能都需要修改其值时，可以考虑使用原型模式拷贝多个对象供调用者使用，即保护性拷贝。</li></ol><p>##Android源码中的模式实现</p><p>Intent中使用了原型模式</p><pre><code>Uri uri = Uri.parse(&quot;smsto:0800000123&quot;);        Intent shareIntent = new Intent(Intent.ACTION_SENDTO, uri);        shareIntent.putExtra(&quot;sms_body&quot;, &quot;The SMS text&quot;);        Intent intent = (Intent)shareIntent.clone() ;    startActivity(intent);</code></pre><p>##优点与缺点</p><p>###优点<br>原型模式是在内存二进制流的拷贝，要比直接 new 一个对象性能好很多，特别是要在一个循环体内产生大量的对象时，原型模式可以更好地体现其优点。</p><p>###缺点<br>这既是它的优点也是缺点，直接在内存中拷贝，构造函数是不会执行的，在实际开发当中应该注意这个潜在的问题。优点就是减少了约束，缺点也是减少了约束，需要大家在实际应用时考虑。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;原型模式&quot;&gt;&lt;a href=&quot;#原型模式&quot; class=&quot;headerlink&quot; title=&quot;#原型模式&quot;&gt;&lt;/a&gt;#原型模式&lt;/h2&gt;&lt;p&gt;##模式介绍  &lt;/p&gt;
+&lt;p&gt;###模式的定义&lt;/p&gt;
+&lt;p&gt;用原型实例指定创建对象的种类，并通过拷贝这些原型创建新的
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>常见的面向对象设计原则</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/常见的面向对象设计原则/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:50:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>#常见的面向对象设计原则</p><ol><li>单一职责原则 SRP<br>一个类应该仅有一个引起它变化的原因。</li><li>开放关闭原则 OCP<br>一个类应该对外扩展开放，对修改关闭。</li><li>里氏替换原则 LSP<br>子类型能够替换掉它们的父类型。</li><li>依赖倒置原则 DIP<br>要依赖于抽象，不要依赖于具体类，要做到依赖倒置，应该做到：<ul><li>高层模块不应该依赖底层模块，二者都应该依赖于抽象。</li><li>抽象不应该依赖于具体实现，具体实现应该依赖于抽象。</li></ul></li><li>接口隔离原则 ISP<br>不应该强迫客户依赖于他们不用的方法。</li><li>最少知识原则 LKP<br>只和你的朋友谈话。</li><li>其他原则<ul><li>面向接口编程</li><li>优先使用组合，而非继承</li><li>一个类需要的数据应该隐藏在类的内部</li><li>类之间应该零耦合，或者只有传导耦合，换句话说，类之间要么没关系，要么只使用另一个类的接口提供的操作</li><li>在水平方向上尽可能统一地分布系统功能</li></ul></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;#常见的面向对象设计原则&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;单一职责原则 SRP&lt;br&gt;一个类应该仅有一个引起它变化的原因。&lt;/li&gt;
+&lt;li&gt;开放关闭原则 OCP&lt;br&gt;一个类应该对外扩展开放，对修改关闭。&lt;/li&gt;
+&lt;li&gt;里氏替换原则 LSP&lt;br&gt;子类型能够替换掉它们的父类
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>策略模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/策略模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:51:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="策略模式"><a href="#策略模式" class="headerlink" title="#策略模式"></a>#策略模式</h2><p>##模式的定义</p><p>策略模式定义了一系列的算法，并将每一个算法封装起来，而且使它们还可以相互替换。策略模式让算法独立于使用它的客户而独立变化。</p><p>注：针对同一类型操作，将复杂多样的处理方式分别开来，有选择的实现各自特有的操作。</p><p>##模式的使用场景</p><ul><li>针对同一类型问题的多种处理方式，仅仅是具体行为有差别时。</li><li>需要安全的封装多种同一类型的操作时。</li><li>出现同一抽象多个子类，而又需要使用if-else 或者 switch-case来选择时。</li></ul><p>##Android源码中的模式实现</p><p>策略模式主要用来分离算法，根据相同的行为抽象来做不同的具体策略实现。</p><p>##优缺点</p><p>###优点：</p><ul><li>结构清晰明了、使用简单直观。</li><li>耦合度相对而言较低，扩展方便。</li><li>操作封装也更为彻底，数据更为安全。</li></ul><p>###缺点：</p><ul><li>随着策略的增加，子类也会变得繁多。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;策略模式&quot;&gt;&lt;a href=&quot;#策略模式&quot; class=&quot;headerlink&quot; title=&quot;#策略模式&quot;&gt;&lt;/a&gt;#策略模式&lt;/h2&gt;&lt;p&gt;##模式的定义&lt;/p&gt;
+&lt;p&gt;策略模式定义了一系列的算法，并将每一个算法封装起来，而且使它们还可以相互替换。策略模式让算
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>观察者模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/观察者模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:51:18.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="观察者模式"><a href="#观察者模式" class="headerlink" title="#观察者模式"></a>#观察者模式</h2><p>首先在Android中，我们往ListView添加数据后，都会调用Adapter的notifyDataChanged()方法，其中使用了观察者模式。</p><p>当ListView的数据发生变化时，调用Adapter的notifyDataSetChanged函数，这个函数又会调用DataSetObservable的notifyChanged函数，这个函数会调用所有观察者(AdapterDataSetObserver)的onChanged方法，在onChanged函数中又会调用ListView重新布局的函数使得ListView刷新界面。</p><p>Android中应用程序发送广播的过程：</p><ul><li>通过sendBroadcast把一个广播通过Binder发送给ActivityManagerService，ActivityManagerService根据这个广播的Action类型找到相应的广播接收器，然后把这个广播放进自己的消息队列中，就完成第一阶段对这个广播的异步分发。</li><li>ActivityManagerService在消息循环中处理这个广播，并通过Binder机制把这个广播分发给注册的ReceiverDispatcher，ReceiverDispatcher把这个广播放进MainActivity所在线程的消息队列中，就完成第二阶段对这个广播的异步分发：</li><li>ReceiverDispatcher的内部类Args在MainActivity所在的线程消息循环中处理这个广播，最终是将这个广播分发给所注册的BroadcastReceiver实例的onReceive函数进行处理：</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;观察者模式&quot;&gt;&lt;a href=&quot;#观察者模式&quot; class=&quot;headerlink&quot; title=&quot;#观察者模式&quot;&gt;&lt;/a&gt;#观察者模式&lt;/h2&gt;&lt;p&gt;首先在Android中，我们往ListView添加数据后，都会调用Adapter的notifyDataChang
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>简单工厂</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/简单工厂/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:51:11.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="#简单工厂"></a>#简单工厂</h2><p>###接口<br>接口是一种特殊的抽象类，跟一般的抽象类相比，接口里的所有方法都是抽象方法，接口里的所有属性都是常量。也就是说接口里面只有方法定义没有任何方法实现。</p><p>接口的思想是”封装隔离”</p><p>###简单工厂<br>示例代码：<br><a href="https://github.com/GeniusVJR/DesignMode_Java/tree/master/SimpleFactory" target="_blank" rel="noopener">https://github.com/GeniusVJR/DesignMode_Java/tree/master/SimpleFactory</a></p><p>客户端在调用的时候，不但知道了接口，同时还知道了具体的实现。接口的思想是”封装隔离”，而实现类Impl应该是被接口Api封装并同客户端隔离开来的，客户端不应该知道具体的实现类是Impl。</p><p>###简单工厂的功能<br>不仅可以利用简单工厂来创建接口，也可以用简单工厂来创造抽象类，甚至是一个具体的实例。</p><p>###静态工厂<br>没有创建工厂实例的必要，把简单工厂实现成一个工具类，直接使用静态方法。</p><p>###万能工厂<br> 一个简单哪工厂可以包含很多用来构造东西的方法，这些方法可以创建不同的接口、抽象类或者是类实例。</p><p>###简单工厂的优缺点</p><ol><li>优点</li></ol><ul><li>帮助封装</li><li>解耦</li></ul><ol start="2"><li>缺点</li></ol><ul><li>可能增加客户端的复杂度</li><li>不方便扩展子工厂</li></ul><p>##思考</p><p>简单工厂的本质是选择实现。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;简单工厂&quot;&gt;&lt;a href=&quot;#简单工厂&quot; class=&quot;headerlink&quot; title=&quot;#简单工厂&quot;&gt;&lt;/a&gt;#简单工厂&lt;/h2&gt;&lt;p&gt;###接口&lt;br&gt;接口是一种特殊的抽象类，跟一般的抽象类相比，接口里的所有方法都是抽象方法，接口里的所有属性都是常量。也
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>责任链模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/责任链模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:51:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="责任链模式"><a href="#责任链模式" class="headerlink" title="#责任链模式"></a>#责任链模式</h2><p>##模式介绍</p><p>###模式的定义</p><p>一个请求沿着一条“链”传递，直到该“链”上的某个处理者处理它为止。</p><p>###模式的使用场景</p><p>一个请求可以被多个处理者处理或处理者未明确指定时。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;责任链模式&quot;&gt;&lt;a href=&quot;#责任链模式&quot; class=&quot;headerlink&quot; title=&quot;#责任链模式&quot;&gt;&lt;/a&gt;#责任链模式&lt;/h2&gt;&lt;p&gt;##模式介绍&lt;/p&gt;
+&lt;p&gt;###模式的定义&lt;/p&gt;
+&lt;p&gt;一个请求沿着一条“链”传递，直到该“链”上的某个处理
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>适配器模式</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/DesignPattern/适配器模式/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:51:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="#适配器模式"></a>#适配器模式</h2><p>定义：</p><blockquote><p>将一个类的接口转换成客户希望的另一个接口。适配器模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。</p></blockquote><p>功能：</p><blockquote><p>进行转换匹配，目的是复用已有的功能，而不是来实现新的接口。在适配器里实现功能，这种适配器称为智能适配器。</p></blockquote><p>优点：</p><ul><li>更好的复用性</li><li>更好的扩展性</li></ul><p>缺点：</p><ul><li>过多的使用适配器，会让系统非常零乱，不容易整体进行把握。</li></ul><p>本质：</p><p>转换匹配，复用功能。</p><p>何时选用适配器模式：</p><ul><li>如果你想要使用一个已经存在的类，但是它的接口不符合你的需求，这种情况可以使用适配器模式，来把已有的实现转换成你需要的接口。</li><li>如果你想创建一个可以复用的类，这个类可能和一些不兼容的类一起工作，这种情况可以使用适配器模式，到时候需要什么就适配什么。</li><li>如果你想使用一些已经存在的子类，但是不可能对每一个子类都进行适配，这种情况可以选用对象适配器，直接适配这些子类的父类就可以了。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;适配器模式&quot;&gt;&lt;a href=&quot;#适配器模式&quot; class=&quot;headerlink&quot; title=&quot;#适配器模式&quot;&gt;&lt;/a&gt;#适配器模式&lt;/h2&gt;&lt;p&gt;定义：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;将一个类的接口转换成客户希望的另一个接口。适配器模式使得原本由于
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ANR问题</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/ANR%E9%97%AE%E9%A2%98/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/ANR问题/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:47:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="ANR"><a href="#ANR" class="headerlink" title="#ANR"></a>#ANR</h2><p>1、ANR排错一般有三种类型</p><ol><li>KeyDispatchTimeout(5 seconds) –主要是类型按键或触摸事件在特定时间内无响应</li><li>BroadcastTimeout(10 seconds) –BroadcastReceiver在特定时间内无法处理完成</li><li>ServiceTimeout(20 secends) –小概率事件 Service在特定的时间内无法处理完成</li></ol><p>2、哪些操作会导致ANR<br>在主线程执行以下操作：</p><ol><li>高耗时的操作，如图像变换</li><li>磁盘读写，数据库读写操作</li><li>大量的创建新对象</li></ol><p>3、如何避免</p><ol><li>UI线程尽量只做跟UI相关的工作</li><li>耗时的操作(比如数据库操作，I/O，连接网络或者别的有可能阻塞UI线程的操作)把它放在单独的线程处理</li><li>尽量用Handler来处理UIThread和别的Thread之间的交互</li></ol><p>4、解决的逻辑</p><ol><li>使用AsyncTask<ol><li>在doInBackground()方法中执行耗时操作</li><li>在onPostExecuted()更新UI</li></ol></li><li>使用Handler实现异步任务<ol><li>在子线程中处理耗时操作</li><li>处理完成之后，通过handler.sendMessage()传递处理结果</li><li>在handler的handleMessage()方法中更新UI</li><li>或者使用handler.post()方法将消息放到Looper中</li></ol></li></ol><p>5、如何排查</p><ol><li>首先分析log</li><li>从trace.txt文件查看调用stack，adb pull data/anr/traces.txt ./mytraces.txt</li><li>看代码</li><li>仔细查看ANR的成因(iowait?block?memoryleak?)</li></ol><p>6、监测ANR的Watchdog</p><p>最近出来一个叫LeakCanary</p><p>#FC(Force Close)</p><p>##什么时候会出现</p><ol><li>Error</li><li>OOM，内存溢出</li><li>StackOverFlowError</li><li>Runtime,比如说空指针异常</li></ol><p>##解决的办法</p><ol><li>注意内存的使用和管理</li><li>使用Thread.UncaughtExceptionHandler接口</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;ANR&quot;&gt;&lt;a href=&quot;#ANR&quot; class=&quot;headerlink&quot; title=&quot;#ANR&quot;&gt;&lt;/a&gt;#ANR&lt;/h2&gt;&lt;p&gt;1、ANR排错一般有三种类型&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;KeyDispatchTimeout(5 seconds) –主要是类型
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android关于OOM的解决方案</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android%E5%85%B3%E4%BA%8Eoom%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android关于oom的解决方案/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:46:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Android："><a href="#Android：" class="headerlink" title="#Android："></a>#Android：</h2><p>#Android关于OOM的解决方案</p><p>##OOM</p><ul><li>内存溢出（Out Of Memory）</li><li>也就是说内存占有量超过了VM所分配的最大</li></ul><p>##出现OOM的原因</p><ol><li>加载对象过大</li><li>相应资源过多，来不及释放</li></ol><p>##如何解决</p><ol><li>在内存引用上做些处理，常用的有软引用、强化引用、弱引用</li><li>在内存中加载图片时直接在内存中作处理，如边界压缩</li><li>动态回收内存</li><li>优化Dalvik虚拟机的堆内存分配</li><li>自定义堆内存大小</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Android：&quot;&gt;&lt;a href=&quot;#Android：&quot; class=&quot;headerlink&quot; title=&quot;#Android：&quot;&gt;&lt;/a&gt;#Android：&lt;/h2&gt;&lt;p&gt;#Android关于OOM的解决方案&lt;/p&gt;
+&lt;p&gt;##OOM&lt;/p&gt;
+&lt;ul&gt;
+&lt;li
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>APP启动过程</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/APP%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/APP启动过程/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:48:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="APP启动过程"><a href="#APP启动过程" class="headerlink" title="#APP启动过程"></a>#APP启动过程</h2><p><img src="http://7xntdm.com1.z0.glb.clouddn.com/activity_start_flow.png" alt></p><ul><li>上图就可以很好的说明App启动的过程</li><li>ActivityManagerService组织回退栈时以ActivityRecord为基本单位，所有的ActivityRecord放在同一个ArrayList里，可以将mHistory看作一个栈对象，索引0所指的对象位于栈底，索引mHistory.size()-1所指的对象位于栈顶</li><li>Zygote进程孵化出新的应用进程后，会执行ActivityThread类的main方法.在该方法里会先准备好Looper和消息队列，然后调用attach方法将应用进程绑定到ActivityManagerService，然后进入loop循环，不断地读取消息队列里的消息，并分发消息。</li><li>ActivityThread的main方法执行后,应用进程接下来通知ActivityManagerService应用进程已启动，ActivityManagerService保存应用进程的一个代理对象，这样ActivityManagerService可以通过这个代理对象控制应用进程，然后ActivityManagerService通知<strong>应用进程</strong>创建入口Activity的实例，并执行它的生命周期方法</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;APP启动过程&quot;&gt;&lt;a href=&quot;#APP启动过程&quot; class=&quot;headerlink&quot; title=&quot;#APP启动过程&quot;&gt;&lt;/a&gt;#APP启动过程&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;http://7xntdm.com1.z0.glb.clouddn.com/
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android几种进程</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android%E5%87%A0%E7%A7%8D%E8%BF%9B%E7%A8%8B/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android几种进程/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:47:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Android："><a href="#Android：" class="headerlink" title="#Android："></a>#Android：</h2><h2 id="Android几种进程"><a href="#Android几种进程" class="headerlink" title="#Android几种进程"></a>#Android几种进程</h2><ol><li>前台进程：即与用户正在交互的Activity或者Activity用到的Service等，如果系统内存不足时前台进程是最后被杀死的</li><li>可见进程：可以是处于暂停状态(onPause)的Activity或者绑定在其上的Service，即被用户可见，但由于失去了焦点而不能与用户交互</li><li>服务进程：其中运行着使用startService方法启动的Service，虽然不被用户可见，但是却是用户关心的，例如用户正在非音乐界面听的音乐或者正在非下载页面自己下载的文件等；当系统要空间运行前两者进程时才会被终止</li><li>后台进程：其中运行着执行onStop方法而停止的程序，但是却不是用户当前关心的，例如后台挂着的QQ，这样的进程系统一旦没了有内存就首先被杀死</li><li>空进程：不包含任何应用程序的程序组件的进程，这样的进程系统是一般不会让他存在的</li></ol><p>如何避免后台进程被杀死：</p><ol><li>调用startForegound，让你的Service所在的线程成为前台进程</li><li>Service的onStartCommond返回START_STICKY或START_REDELIVER_INTENT</li><li>Service的onDestroy里面重新启动自己</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Android：&quot;&gt;&lt;a href=&quot;#Android：&quot; class=&quot;headerlink&quot; title=&quot;#Android：&quot;&gt;&lt;/a&gt;#Android：&lt;/h2&gt;&lt;h2 id=&quot;Android几种进程&quot;&gt;&lt;a href=&quot;#Android几种进程&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android图片中的三级缓存</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android%E5%9B%BE%E7%89%87%E4%B8%AD%E7%9A%84%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android图片中的三级缓存/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:47:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Android："><a href="#Android：" class="headerlink" title="#Android："></a>#Android：</h2><h2 id="Android图片中的三级缓存"><a href="#Android图片中的三级缓存" class="headerlink" title="#Android图片中的三级缓存"></a>#Android图片中的三级缓存</h2><p>##为什么要使用三级缓存</p><ul><li>如今的 Android App 经常会需要网络交互，通过网络获取图片是再正常不过的事了</li><li>假如每次启动的时候都从网络拉取图片的话，势必会消耗很多流量。在当前的状况下，对于非wifi用户来说，流量还是很贵的，一个很耗流量的应用，其用户数量级肯定要受到影响</li><li>特别是，当我们想要重复浏览一些图片时，如果每一次浏览都需要通过网络获取，流量的浪费可想而知</li><li>所以提出三级缓存策略，通过网络、本地、内存三级缓存图片，来减少不必要的网络交互，避免浪费流量</li></ul><p>##什么是三级缓存</p><ul><li>网络加载，不优先加载，速度慢，浪费流量</li><li>本地缓存，次优先加载，速度快</li><li>内存缓存，优先加载，速度最快</li></ul><p>##三级缓存原理</p><ul><li>首次加载 Android App 时，肯定要通过网络交互来获取图片，之后我们可以将图片保存至本地SD卡和内存中</li><li>之后运行 App 时，优先访问内存中的图片缓存，若内存中没有，则加载本地SD卡中的图片</li><li>总之，只在初次访问新内容时，才通过网络获取图片资源</li></ul><p>参考链接</p><p><a href="http://www.jianshu.com/p/2cd59a79ed4a" target="_blank" rel="noopener">http://www.jianshu.com/p/2cd59a79ed4a</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Android：&quot;&gt;&lt;a href=&quot;#Android：&quot; class=&quot;headerlink&quot; title=&quot;#Android：&quot;&gt;&lt;/a&gt;#Android：&lt;/h2&gt;&lt;h2 id=&quot;Android图片中的三级缓存&quot;&gt;&lt;a href=&quot;#Android图片中的三
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android开机过程</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android%E5%BC%80%E6%9C%BA%E8%BF%87%E7%A8%8B/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android开机过程/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:47:30.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Android开机过程"><a href="#Android开机过程" class="headerlink" title="Android开机过程"></a>Android开机过程</h1><ul><li>BootLoder引导,然后加载Linux内核.</li><li>0号进程init启动.加载init.rc配置文件,配置文件有个命令启动了zygote进程</li><li>zygote开始fork出SystemServer进程</li><li>SystemServer加载各种JNI库,然后init1,init2方法,init2方法中开启了新线程ServerThread.</li><li>在SystemServer中会创建一个socket客户端，后续AMS（ActivityManagerService）会通过此客户端和zygote通信</li><li>ServerThread的run方法中开启了AMS,还孵化新进程ServiceManager,加载注册了一溜的服务,最后一句话进入loop 死循环</li><li>run方法的SystemReady调用resumeTopActivityLocked打开锁屏界面</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Android开机过程&quot;&gt;&lt;a href=&quot;#Android开机过程&quot; class=&quot;headerlink&quot; title=&quot;Android开机过程&quot;&gt;&lt;/a&gt;Android开机过程&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;BootLoder引导,然后加载Linux内核.&lt;/li
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ART和Dalvik区别</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/Art%E5%92%8CDalvik%E5%8C%BA%E5%88%AB/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/Art和Dalvik区别/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:48:08.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="ART和Dalvik区别"><a href="#ART和Dalvik区别" class="headerlink" title="#ART和Dalvik区别"></a>#ART和Dalvik区别</h2><p>Art上应用启动快，运行快，但是耗费更多存储空间，安装时间长，总的来说ART的功效就是”空间换时间”。</p><p>ART: Ahead of Time Dalvik: Just in Time</p><p>什么是Dalvik：Dalvik是Google公司自己设计用于Android平台的Java虚拟机。Dalvik虚拟机是Google等厂商合作开发的Android移动设备平台的核心组成部分之一，它可以支持已转换为.dex(即Dalvik Executable)格式的Java应用程序的运行，.dex格式是专为Dalvik应用设计的一种压缩格式，适合内存和处理器速度有限的系统。Dalvik经过优化，允许在有限的内存中同时运行多个虚拟机的实例，并且每一个Dalvik应用作为独立的Linux进程执行。独立的进程可以防止在虚拟机崩溃的时候所有程序都被关闭。</p><p>什么是ART:Android操作系统已经成熟，Google的Android团队开始将注意力转向一些底层组件，其中之一是负责应用程序运行的Dalvik运行时。Google开发者已经花了两年时间开发更快执行效率更高更省电的替代ART运行时。ART代表Android Runtime,其处理应用程序执行的方式完全不同于Dalvik，Dalvik是依靠一个Just-In-Time(JIT)编译器去解释字节码。开发者编译后的应用代码需要通过一个解释器在用户的设备上运行，这一机制并不高效，但让应用能更容易在不同硬件和架构上运行。ART则完全改变了这套做法，在应用安装的时候就预编译字节码到机器语言，这一机制叫Ahead-Of-Time(AOT)编译。在移除解释代码这一过程后，应用程序执行将更有效率，启动更快。</p><p>ART优点：</p><ol><li>系统性能的显著提升</li><li>应用启动更快、运行更快、体验更流畅、触感反馈更及时</li><li>更长的电池续航能力</li><li>支持更低的硬件</li></ol><p>ART缺点：</p><ol><li>更大的存储空间占用，可能会增加10%-20%</li><li>更长的应用安装时间</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;ART和Dalvik区别&quot;&gt;&lt;a href=&quot;#ART和Dalvik区别&quot; class=&quot;headerlink&quot; title=&quot;#ART和Dalvik区别&quot;&gt;&lt;/a&gt;#ART和Dalvik区别&lt;/h2&gt;&lt;p&gt;Art上应用启动快，运行快，但是耗费更多存储空间，安装时
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Android系统机制</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android%E7%B3%BB%E7%BB%9F%E6%9C%BA%E5%88%B6/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/Android系统机制/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:47:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Android系统机制"><a href="#Android系统机制" class="headerlink" title="#Android系统机制"></a>#Android系统机制</h2><p>###APP启动过程</p><ol><li>Launcher线程捕获onclick的点击事件，调用Launcher.startActivitySafely，进一步调用Launcher.startActivity，最后调用父类Activity的startActivity。</li><li>Activity和ActivityManagerService交互，引入Instrumentation，将启动请求交给Instrumentation，调用Instrumentation.execStartActivity</li><li></li></ol><p>###Android内核解读-应用的安装过程</p><p><a href="http://blog.csdn.net/singwhatiwanna/article/details/19578947" target="_blank" rel="noopener">http://blog.csdn.net/singwhatiwanna/article/details/19578947</a><br>apk的安装过程分为两步：</p><ol><li>将apk文件复制到程序目录下(/data/app/)</li><li>为应用创建数据目录(/data/data/package name/)、提取dex文件到指定目录(/data/delvik-cache/)、修改系统包管理信息。</li></ol><p>###View的事件体系</p><p>###Handler消息机制</p><p>###AsyncTask<br>AyncTask是一个抽象类。</p><p>需要重写的方法有四个：</p><ol><li>onPreExecute()<br> 这个方法会在后台任务开始之前调用，用于进行一些界面上的初始化操作，比如显示一个进度条对话框等</li><li>doInBackGround(Params…)<br> 在子线程中运行，不可更新UI，返回的是执行结果，第三个参数为Void不返回</li><li>onProgressUpdate(Progress…)<br> 利用参数可以进行UI操作。</li><li>onPostExecute(Result)<br> 返回的数据会作为参数传递到此方法中，可以利用返回的一些数据来进行一些UI操作。</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class DownloadTask extends AsyncTask&lt;Void, Integer, Boolean&gt; &#123;  </span><br><span class="line">  </span><br><span class="line">    @Override  </span><br><span class="line">    protected void onPreExecute() &#123;  </span><br><span class="line">        progressDialog.show();  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    @Override  </span><br><span class="line">    protected Boolean doInBackground(Void... params) &#123;  </span><br><span class="line">        try &#123;  </span><br><span class="line">            while (true) &#123;  </span><br><span class="line">                int downloadPercent = doDownload();  </span><br><span class="line">                publishProgress(downloadPercent);  </span><br><span class="line">                if (downloadPercent &gt;= 100) &#123;  </span><br><span class="line">                    break;  </span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125; catch (Exception e) &#123;  </span><br><span class="line">            return false;  </span><br><span class="line">        &#125;  </span><br><span class="line">        return true;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    @Override  </span><br><span class="line">    protected void onProgressUpdate(Integer... values) &#123;  </span><br><span class="line">        progressDialog.setMessage(&quot;当前下载进度：&quot; + values[0] + &quot;%&quot;);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    @Override  </span><br><span class="line">    protected void onPostExecute(Boolean result) &#123;  </span><br><span class="line">        progressDialog.dismiss();  </span><br><span class="line">        if (result) &#123;  </span><br><span class="line">            Toast.makeText(context, &quot;下载成功&quot;, Toast.LENGTH_SHORT).show();  </span><br><span class="line">        &#125; else &#123;  </span><br><span class="line">            Toast.makeText(context, &quot;下载失败&quot;, Toast.LENGTH_SHORT).show();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>启动这个任务：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new DownloadTask().execute();</span><br></pre></td></tr></table></figure><p>###图片缓存机制</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;Android系统机制&quot;&gt;&lt;a href=&quot;#Android系统机制&quot; class=&quot;headerlink&quot; title=&quot;#Android系统机制&quot;&gt;&lt;/a&gt;#Android系统机制&lt;/h2&gt;&lt;p&gt;###APP启动过程&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Launcher
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>EventBus用法详解</title>
+    <link href="https://microcodor.github.io/2019/05/07/Android/Part1/Android/EventBus%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://microcodor.github.io/2019/05/07/Android/Part1/Android/EventBus用法详解/</id>
+    <published>2019-05-07T08:08:00.000Z</published>
+    <updated>2019-05-07T08:48:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="EventBus"><a href="#EventBus" class="headerlink" title="#EventBus"></a>#EventBus</h2><p>###概述</p><p>EventBus是一款针对Android优化的发布/订阅（publish/subscribe）事件总线。主要功能是替代Intent,Handler,BroadCast在Fragment，Activity，Service，线程之间传递消息。简化了应用程序内各组件间、组件与后台线程间的通信。优点是开销小，代码更优雅。以及将发送者和接收者解耦。比如请求网络，等网络返回时通过Handler或Broadcast通知UI，两个Fragment之间需要通过Listener通信，这些需求都可以通过EventBus实现。</p><p>###EventBus作为一个消息总线，有三个主要的元素：</p><ul><li>Event：事件。可以是任意类型的对象</li><li>Subscriber：事件订阅者，接收特定的事件。在EventBus中，使用约定来指定事件订阅者以简化使用。即所有事件订阅都都是以onEvent开头的函数，具体来说，函数的名字是onEvent,onEventMainThread，onEventBackgroundThread，onEventAsync这四个，这个和<br>ThreadMode（下面讲）有关。</li><li>Publisher：事件发布者，用于通知 Subscriber 有事件发生。可以在任意线程任意位置发送事件，直接调用eventBus.post(Object) 方法，可以自己实例化 EventBus<br>对象，但一般使用默认的单例就好了：EventBus.getDefault()， 根据post函数参数的类型，会自动调用订阅相应类型事件的函数。</li></ul><p>###关于ThreadMode</p><p>前面说了，Subscriber的函数只能是那4个，因为每个事件订阅函数都是和一个ThreadMode相关联的，ThreadMode指定了会调用的函数。有以下四个ThreadMode：</p><ul><li>PostThread：事件的处理在和事件的发送在相同的进程，所以事件处理时间不应太长，不然影响事件的发送线程，而这个线程可能是UI线程。对应的函数名是onEvent。</li><li>MainThread: 事件的处理会在UI线程中执行。事件处理时间不能太长，这个不用说的，长了会ANR的，对应的函数名是onEventMainThread。</li><li>BackgroundThread：事件的处理会在一个后台线程中执行，对应的函数名是onEventBackgroundThread，虽然名字是BackgroundThread，事件处理是在后台线程，但事件处理时间还是不应该太长，因为如果发送事件的线程是后台线程，会直接执行事件，如果当前线程是UI线程，事件会被加到一个队列中，由一个线程依次处理这些事件，如果某个事件处理时间太长，会阻塞后面的事件的派发或处理。</li><li>Async：事件处理会在单独的线程中执行，主要用于在后台线程中执行耗时操作，每个事件会开启一个线程（有线程池），但最好限制线程的数目。</li></ul><p>根据事件订阅都函数名称的不同，会使用不同的ThreadMode，比如果在后台线程加载了数据想在UI线程显示，订阅者只需把函数命名onEventMainThread。</p><p>对相应的函数名，进一步解释一下：</p><p><strong>onEvent</strong>:如果使用onEvent作为订阅函数，那么该事件在哪个线程发布出来的，onEvent就会在这个线程中运行，也就是说发布事件和接收事件线程在同一个线程。使用这个方法时，在onEvent方法中不能执行耗时操作，如果执行耗时操作容易导致事件分发延迟。</p><p><strong>onEventMainThread</strong>:如果使用onEventMainThread作为订阅函数，那么不论事件是在哪个线程中发布出来的，onEventMainThread都会在UI线程中执行，接收事件就会在UI线程中运行，这个在Android中是非常有用的，因为在Android中只能在UI线程中跟新UI，所以在onEvnetMainThread方法中是不能执行耗时操作的。</p><p><strong>onEventBackground</strong>:如果使用onEventBackgrond作为订阅函数，那么如果事件是在UI线程中发布出来的，那么onEventBackground就会在子线程中运行，如果事件本来就是子线程中发布出来的，那么onEventBackground函数直接在该子线程中执行。</p><p><strong>onEventAsync</strong>：使用这个函数作为订阅函数，那么无论事件在哪个线程发布，都会创建新的子线程在执行onEventAsync。</p><p>##基本用法</p><p>###引入EventBus:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">compile &apos;org.greenrobot:eventbus:3.0.0&apos;</span><br></pre></td></tr></table></figure><p>定义事件:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class MessageEvent &#123; /* Additional fields if needed */ &#125;</span><br></pre></td></tr></table></figure><p>注册事件接收者：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eventBus.register(this);</span><br></pre></td></tr></table></figure><p>发送事件:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eventBus.post(event)</span><br></pre></td></tr></table></figure><p>接收消息并处理:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 3.0后不再要求事件以 onEvent 开头，而是采用注解的方式</span><br><span class="line">@Subscribe(threadMode = ThreadMode.MAIN)</span><br><span class="line">public void receive(MessageEvent event)&#123;&#125;</span><br></pre></td></tr></table></figure><p>注销事件接收：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eventBus.unregister(this);</span><br></pre></td></tr></table></figure><p>索引加速：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3.0 后引入了索引加速(默认不开启)的功能，即通过 apt 编译插件的方式，在代码编译的时候对注解进行索引，避免了以往通过反射造成的性能损耗。</span><br><span class="line">如何使用可以参考[官方文档](http://greenrobot.org/eventbus/documentation/subscriber-index/)</span><br></pre></td></tr></table></figure><p>最后，proguard 需要做一些额外处理:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#EventBus</span><br><span class="line"> -keepclassmembers class ** &#123;</span><br><span class="line">    public void onEvent*(**);</span><br><span class="line">    void onEvent*(**);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;EventBus&quot;&gt;&lt;a href=&quot;#EventBus&quot; class=&quot;headerlink&quot; title=&quot;#EventBus&quot;&gt;&lt;/a&gt;#EventBus&lt;/h2&gt;&lt;p&gt;###概述&lt;/p&gt;
+&lt;p&gt;EventBus是一款针对Android优化的发布/订阅（pu
+      
+    
+    </summary>
+    
+      <category term="Android" scheme="https://microcodor.github.io/categories/Android/"/>
+    
+    
+      <category term="Android" scheme="https://microcodor.github.io/tags/Android/"/>
+    
+  </entry>
+  
+</feed>

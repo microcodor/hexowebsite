@@ -1,0 +1,9 @@
+friend_links:
+  - name: 微码农
+    desc: 微码农外站
+    link: https://wxdroid.com
+
+build_tools:
+  - name: Hexo
+    desc: Blog Framework
+    link: https://hexo.io/
